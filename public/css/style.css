@@ -1,0 +1,149 @@
+/* public/css/style.css */
+
+/* ---------- Base Theme ---------- */
+body {
+  background: #f8f9fb;
+  color: #212529;
+  font-family: 'Segoe UI', sans-serif;
+}
+.navbar-brand {
+  color: #2c7a7b;
+  font-weight: 700;
+}
+.hero-placeholder {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.price {
+  font-weight: 700;
+  color: #2c7a7b;
+}
+.badge-category {
+  background: rgba(44,122,123,0.1);
+  color: #2c7a7b;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  transition: all 0.25s ease-in-out;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+.card img {
+  object-fit: cover;
+  height: 200px;
+}
+
+/* ---------- Buttons ---------- */
+.btn-outline-primary {
+  border-radius: 10px;
+}
+.btn-success {
+  background-color: #2c7a7b;
+  border-color: #2c7a7b;
+}
+.btn-success:hover {
+  background-color: #256b6c;
+  border-color: #256b6c;
+}
+
+/* ---------- Category Tabs ---------- */
+#categoryTabs .nav-link {
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 6px 16px;
+  color: #2c7a7b;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+#categoryTabs .nav-link:hover {
+  background-color: rgba(44,122,123,0.08);
+}
+#categoryTabs .nav-link.active {
+  background-color: #2c7a7b;
+  color: #fff !important;
+}
+
+/* ---------- Mini Cart Badge ---------- */
+#cartCount {
+  font-size: 0.7rem;
+  transform: translate(8px, -6px);
+  padding: 0.25em 0.45em;
+}
+
+/* ---------- Toast Animation ---------- */
+.fitsync-toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 30px;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: all 0.25s ease;
+  z-index: 1200;
+  font-size: 0.9rem;
+}
+.fitsync-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+/* ---------- Dark Mode ---------- */
+.dark-mode {
+  background: #0f1720;
+  color: #d1d5db;
+}
+.dark-mode .navbar {
+  background: #0b1220 !important;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+.dark-mode .navbar a {
+  color: #d1d5db !important;
+}
+.dark-mode .card {
+  background: #0d1a29;
+  color: #e6eef6;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.dark-mode .badge-category {
+  background: rgba(44,122,123,0.15);
+  color: #7ee3d9;
+}
+.dark-mode .price {
+  color: #7ee3d9;
+}
+.dark-mode .btn-outline-secondary {
+  color: #e6eef6;
+  border-color: #2b3943;
+}
+.dark-mode #categoryTabs .nav-link {
+  color: #7ee3d9;
+}
+.dark-mode #categoryTabs .nav-link.active {
+  background-color: #2c7a7b;
+  color: #fff !important;
+}
+.dark-mode .fitsync-toast {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+}

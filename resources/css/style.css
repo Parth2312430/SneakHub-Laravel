@@ -1,0 +1,60 @@
+/* SneakHub Theme */
+body { background-color: #f8f9fa; color: #212529; }
+.navbar-brand { font-size: 1.5rem; letter-spacing: 1px; }
+.btn-outline-light:hover { background-color: #dc3545; border-color: #dc3545; color: #fff; }
+.price { color: #dc3545; font-weight: bold; }
+.card { border: none; transition: 0.3s ease; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+
+/*
+================================
+PRODUCT CARD & GRID FIXES
+================================
+*/
+
+/* 1. This makes all cards in a row the same height */
+.card-grid .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 2. This ensures the card body fills the remaining space */
+.card-grid .card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* This is the magic part */
+}
+
+/* 3. This pushes the "View Details" button to the bottom */
+.card-grid .card-body .btn {
+  margin-top: auto; /* This is the other magic part */
+}
+
+/*
+================================
+IMAGE ALIGNMENT & BLUR FIX
+================================
+*/
+
+/* 4. This creates a uniform "window" for your image */
+.card-img-container {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Makes the "window" a perfect square */
+  overflow: hidden; /* Hides any part of the image that spills out */
+  background-color: #f1f1f1; /* Light grey bg for images that don't fill */
+}
+
+/* 5. This makes the image fill the "window" without stretching */
+.card-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crops, but never stretches/blurs */
+  transition: transform 0.3s ease;
+}
+
+/* 6. A nice hover effect */
+.card-img-container:hover img {
+  transform: scale(1.05);
+}

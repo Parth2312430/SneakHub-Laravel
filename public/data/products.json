@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Nike Air Max 270",
+    "brand": "Nike",
+    "category": "Running",
+    "price": 24999,
+    "description": "Experience all-day comfort and style with the Nike Air Max 270 featuring a large Air unit in the heel.",
+    "image": "/images/nike270.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Adidas Ultraboost 22",
+    "brand": "Adidas",
+    "category": "Running",
+    "price": 27999,
+    "description": "Adidas Ultraboost with responsive BOOST cushioning and Primeknit+ upper for adaptive comfort.",
+    "image": "/images/ultraboost.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Puma RS-X Reinvention",
+    "brand": "Puma",
+    "category": "Lifestyle",
+    "price": 18999,
+    "description": "Bold design and ultimate comfort — Puma RS-X blends retro vibes with modern sneaker tech.",
+    "image": "/images/pumarsx.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Air Jordan 1 Retro High OG",
+    "brand": "Nike",
+    "category": "Basketball",
+    "price": 29999,
+    "description": "The legendary Air Jordan 1 Retro combines premium materials with iconic basketball heritage.",
+    "image": "/images/jordan1.jpg"
+  },
+  {
+    "id": 5,
+    "name": "New Balance 574 Classic",
+    "brand": "New Balance",
+    "category": "Casual",
+    "price": 16999,
+    "description": "Timeless style with soft cushioning and durable suede overlays — perfect for everyday wear.",
+    "image": "/images/nb574.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Converse Chuck Taylor All Star",
+    "brand": "Converse",
+    "category": "Casual",
+    "price": 11999,
+    "description": "The classic high-top sneaker that started it all — iconic design, durable canvas, and timeless appeal.",
+    "image": "/images/converse.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Reebok Nano X3",
+    "brand": "Reebok",
+    "category": "Training",
+    "price": 17999,
+    "description": "Built for performance — Reebok Nano X3 delivers stability and versatility for all workouts.",
+    "image": "/images/nanox3.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Vans Old Skool",
+    "brand": "Vans",
+    "category": "Skate",
+    "price": 13999,
+    "description": "A skate icon featuring the classic Vans side stripe and durable suede-canvas combo.",
+    "image": "/images/vansoldskool.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Nike Air Force 1 '07",
+    "brand": "Nike",
+    "category": "Lifestyle",
+    "price": 19999,
+    "description": "Clean, crisp, and forever classic — the Air Force 1 brings fresh energy to every step.",
+    "image": "/images/airforce1.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Adidas Stan Smith",
+    "brand": "Adidas",
+    "category": "Casual",
+    "price": 14999,
+    "description": "Minimalist and timeless, the Stan Smith remains the ultimate versatile sneaker.",
+    "image": "/images/stansmith.jpg"
+  }
+]
