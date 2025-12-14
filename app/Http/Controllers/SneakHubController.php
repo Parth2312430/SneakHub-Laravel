@@ -36,8 +36,7 @@ class SneakHubController extends Controller
      */
     public function productDetails($id)
     {
-        // Find the product by its ID or fail (which shows a 404 page)
-        // Use with('reviews.user') to also load all associated reviews and their authors
+       
         $product = Product::with('reviews.user')->findOrFail($id);
         
         // Pass the product (and its reviews) to the view

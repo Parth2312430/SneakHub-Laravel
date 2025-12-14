@@ -8,15 +8,25 @@ use Illuminate\Http\Request;
 class ProductApiController extends Controller
 {
     /**
-     * This function is called by the /api/products route.
-     * It provides all products as JSON for the shop page.
+     * Get all products (List).
      */
     public function index()
     {
-        // Fetch all products from the database
-        $products = Product::all();
-        
-        // Return them as a JSON response
-        return response()->json($products);
+        // We load 'reviews' so the API consumer sees ratings too
+        return response()->json(Product::with('reviews')->get());
+    }
+
+    /**
+     * Get a single product (Detail).
+     */
+    public function show($id)
+    {
+        $product = Product::with('reviews')->find($id);
+
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+
+        return response()->json($product);
     }
 }

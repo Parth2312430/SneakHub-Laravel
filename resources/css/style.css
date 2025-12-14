@@ -1,17 +1,131 @@
 /* SneakHub Theme */
-body { background-color: #f8f9fa; color: #212529; }
+body { background-color: #f8f9fa; color: #212529; transition: background-color 0.3s ease, color 0.3s ease; }
 .navbar-brand { font-size: 1.5rem; letter-spacing: 1px; }
 .btn-outline-light:hover { background-color: #dc3545; border-color: #dc3545; color: #fff; }
 .price { color: #dc3545; font-weight: bold; }
-.card { border: none; transition: 0.3s ease; }
+.card { border: none; transition: 0.3s ease; background-color: #ffffff; }
 .card:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 
+/* ========================================
+   DARK MODE STYLES
+   ======================================== */
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
 
-/*
-================================
-PRODUCT CARD & GRID FIXES
-================================
-*/
+body.dark-mode .bg-light {
+  background-color: #1a1a1a !important;
+}
+
+body.dark-mode .card {
+  background-color: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .card:hover {
+  box-shadow: 0 6px 20px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .card-title,
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+  color: #ffffff;
+}
+
+body.dark-mode .text-muted {
+  color: #a0a0a0 !important;
+}
+
+body.dark-mode .badge.bg-dark {
+  background-color: #404040 !important;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+  background-color: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .form-control::placeholder {
+  color: #808080;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+  background-color: #333333;
+  border-color: #555555;
+  color: #e0e0e0;
+}
+
+body.dark-mode .btn-outline-dark {
+  color: #e4d8d8;
+  border-color: #e4dede;
+  background-color: #ffffff;
+  font-weight: 500;
+}
+
+body.dark-mode .btn-outline-light:hover {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+  color: #171616;
+}
+
+body.dark-mode .btn-dark {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #1a1a1a;
+}
+
+body.dark-mode .btn-dark:hover {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+  color: #d9d2d2;
+}
+
+body.dark-mode .modal-content {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-header {
+  border-bottom-color: #3a3a3a;
+}
+
+body.dark-mode .card-img-container {
+  background-color: #2a2a2a;
+  border-bottom-color: #3a3a3a;
+}
+
+body.dark-mode .alert-success {
+  background-color: #1e4620;
+  border-color: #2d6a2f;
+  color: #b7e4b8;
+}
+
+body.dark-mode .alert-danger {
+  background-color: #4a1c1c;
+  border-color: #6b2929;
+  color: #f8b4b4;
+}
+
+/* Dark mode navbar stays dark */
+body.dark-mode .navbar-dark {
+  background-color: #0d0d0d !important;
+}
+
+/* Dark mode footer */
+body.dark-mode footer {
+  background-color: #0d0d0d !important;
+  border-top-color: #3a3a3a;
+}
+
+body.dark-mode footer .text-muted {
+  color: #808080 !important;
+}
+
 
 /* 1. This makes all cards in a row the same height */
 .card-grid .card {
@@ -20,16 +134,15 @@ PRODUCT CARD & GRID FIXES
   height: 100%;
 }
 
-/* 2. This ensures the card body fills the remaining space */
 .card-grid .card-body {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* This is the magic part */
+  flex-grow: 1; 
 }
 
 /* 3. This pushes the "View Details" button to the bottom */
 .card-grid .card-body .btn {
-  margin-top: auto; /* This is the other magic part */
+  margin-top: auto; 
 }
 
 /*
@@ -41,20 +154,157 @@ IMAGE ALIGNMENT & BLUR FIX
 /* 4. This creates a uniform "window" for your image */
 .card-img-container {
   width: 100%;
-  aspect-ratio: 1 / 1; /* Makes the "window" a perfect square */
-  overflow: hidden; /* Hides any part of the image that spills out */
-  background-color: #f1f1f1; /* Light grey bg for images that don't fill */
+  height: 280px;
+  overflow: hidden; 
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 /* 5. This makes the image fill the "window" without stretching */
 .card-img-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Crops, but never stretches/blurs */
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
 }
 
 /* 6. A nice hover effect */
 .card-img-container:hover img {
   transform: scale(1.05);
+}
+
+/* --- MODERN DASHBOARD THEME --- */
+
+/* Smooth Transitions */
+.transition-all-300 { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Card Lift Effect */
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Glassmorphism */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Custom Scrollbar for Dropdowns */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* Gradient Text */
+.text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.grad-blue { background-image: linear-gradient(to right, #2563eb, #4f46e5); }
+.grad-green { background-image: linear-gradient(to right, #059669, #10b981); }
+.grad-orange { background-image: linear-gradient(to right, #d97706, #f59e0b); }
+
+/* =========================================
+   VIBRANT DASHBOARD THEME (Force Colors)
+   ========================================= */
+
+/* 1. Global Page Background (Subtle Gradient) */
+body {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    min-height: 100vh;
+}
+
+/* 2. Module: PRODUCTS (Royal Blue/Indigo Theme) */
+.bg-gradient-to-r.from-pink-600.to-purple-600,
+.group:hover .from-pink-600 { 
+    background: linear-gradient(90deg, #4f46e5, #ec4899) !important;
+    opacity: 1 !important;
+    filter: blur(8px);
+}
+
+/* 3. Module: CATEGORIES (Emerald/Teal Theme) */
+.from-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #10b981 0%, #0d9488 100%) !important;
+}
+.bg-emerald-50 { background-color: #ecfdf5 !important; }
+.text-emerald-600 { color: #059669 !important; }
+
+/* 4. Module: BRANDS (Amber/Orange Theme) */
+.from-cyan-400.to-blue-500 {
+    background: linear-gradient(90deg, #f59e0b, #f97316) !important;
+    opacity: 0.6;
+    filter: blur(10px);
+}
+.from-cyan-500.to-blue-600 {
+    background: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%) !important;
+}
+
+/* 5. Universal Card Effects */
+.bg-white {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.hover\:shadow-2xl:hover {
+    box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.15), 0 10px 10px -5px rgba(79, 70, 229, 0.1) !important;
+    transform: translateY(-4px);
+}
+
+/* 6. Buttons */
+button[type="submit"], .bg-gray-900 {
+    background: linear-gradient(to right, #1f2937, #111827) !important;
+    transition: all 0.3s ease;
+}
+button[type="submit"]:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+.bg-yellow-400 {
+    background-color: #fbbf24 !important;
+    color: #312e81 !important; /* Deep Indigo Text */
+    font-weight: 800 !important;
+}
+
+/* =========================================
+   FINAL FIX: BUTTON TEXT VISIBILITY
+   ========================================= */
+
+/* 1. Navigation Links (Top Bar) */
+nav a.inline-flex:hover, 
+.nav-link:hover {
+    color: #000000 !important; 
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 2. "Edit" Buttons (Light Backgrounds) */
+a[href*="/edit"]:hover,
+a[href*="edit"]:hover {
+    color: #4338ca !important; /* Dark Indigo */
+    background-color: #e0e7ff !important; /* Light Indigo Background */
+}
+
+/* 3. "Delete" Buttons (Icons) */
+form button:hover {
+    color: #dc2626 !important; /* Red */
+}
+
+/* 4. Primary "Solid" Buttons (Add/Save/Search) */
+button[type="submit"]:hover,
+a[href*="create"]:hover,
+.bg-black:hover,
+.bg-gray-900:hover,
+.bg-indigo-600:hover,
+.bg-emerald-500:hover,
+.bg-amber-500:hover {
+    color: #ffffff !important; /* Force White Text */
+    opacity: 0.9 !important;
 }

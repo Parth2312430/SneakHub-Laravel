@@ -26,8 +26,11 @@
   <body class="bg-light">
     {{-- Display Success/Error Messages --}}
     @if (session('success'))
-        <div class="alert alert-success mb-0">
-            {{ session('success') }}
+        <div class="container mt-3">
+            <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 rounded-3" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
     @endif
     @if (session('error'))
@@ -52,7 +55,29 @@
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- NOTE: We removed the old products.js from here -->
+    <!-- Dark Mode Toggle Script -->
+    <script>
+      // Check for saved theme preference or default to light mode
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeIcon')?.classList.replace('bi-moon-fill', 'bi-sun-fill');
+      }
+
+      // Toggle theme on button click
+      document.getElementById('themeToggle')?.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        const icon = document.getElementById('themeIcon');
+        
+        if (document.body.classList.contains('dark-mode')) {
+          icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    </script>
 
   </body>
 </html>

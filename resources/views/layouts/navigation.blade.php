@@ -12,8 +12,29 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <!-- 1. Dashboard -->
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-gray-700 hover:text-black font-bold transition-colors duration-200">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+
+                    <!-- 2. Shop (Public) - Points to your public products page -->
+                    <x-nav-link :href="route('products')" :active="request()->routeIs('products')" class="text-gray-700 hover:text-black font-bold transition-colors duration-200">
+                        {{ __('Shop') }}
+                    </x-nav-link>
+
+                    <!-- 3. Manage Products (Admin) -->
+                    <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')" class="text-gray-700 hover:text-black font-bold transition-colors duration-200">
+                        {{ __('Inventory') }}
+                    </x-nav-link>
+
+                    <!-- 4. Manage Categories (Admin) -->
+                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')" class="text-gray-700 hover:text-black font-bold transition-colors duration-200">
+                        {{ __('Categories') }}
+                    </x-nav-link>
+
+                    <!-- 5. Manage Brands (Admin) -->
+                    <x-nav-link :href="route('admin.brands.index')" :active="request()->routeIs('admin.brands.*')" class="text-gray-700 hover:text-black font-bold transition-colors duration-200">
+                        {{ __('Brands') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -69,6 +90,18 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('products')" :active="request()->routeIs('products')">
+                {{ __('Shop') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
+                {{ __('Inventory') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
+                {{ __('Categories') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.brands.index')" :active="request()->routeIs('admin.brands.*')">
+                {{ __('Brands') }}
             </x-responsive-nav-link>
         </div>
 

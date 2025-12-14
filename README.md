@@ -1,61 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">SneakHub (Laravel)</h1>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+SneakHub is a sneaker storefront with a public shop, product details with reviews, and an admin panel to manage products, brands, and categories. It includes AJAX search, public APIs, image previews, and light/dark theme support.
 
-## About Laravel
+## Features
+- Public shop: browse, search, filter, and view product details
+- Reviews: authenticated users can rate and comment on products
+- Admin CRUD: products, brands, categories (with image upload & previews)
+- AJAX search: admin product/brand search dropdowns
+- APIs: products, categories, brands exposed as JSON
+- Seed data: 30 products + brands + categories via `MasterSeeder`
+- Light/dark theme toggle on the public site
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech Stack
+- PHP 8.1+ / Laravel 10+
+- MySQL
+- Vite, Bootstrap 5, Tailwind utility classes (light usage)
+- Node 18+ / npm
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Prerequisites
+- PHP 8.1+ and Composer
+- Node 18+ and npm
+- MySQL database created and credentials ready
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Setup
+```bash
+git clone https://github.com/Parth2312430/SneakHub-Laravel.git
+cd SneakHub-Laravel
 
-## Learning Laravel
+cp .env.example .env    # set DB_*, APP_URL, etc.
+composer install
+npm install
+php artisan key:generate
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# build and seed
+php artisan migrate --seed   # seeds MasterSeeder via DatabaseSeeder
+npm run build
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# serve
+php artisan serve
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Need a clean reset?
+```bash
+php artisan migrate:fresh --seed
+npm run build
+```
 
-## Laravel Sponsors
+## Usage
+- Public: `/` (welcome), `/shop`, `/product/{id}`, `/contact`
+- Reviews: must be logged in; submit on product detail page
+- Dark mode: toggle in navbar on the public site
+- Admin (auth required):
+	- `/admin/products`
+	- `/admin/brands`
+	- `/admin/categories`
+	- AJAX search on products/brands; image previews on upload
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Authentication: register/login normally. A sample user is seeded (`test@example.com`, password set by Laravel factory default: `password`).
 
-### Premium Partners
+## API Endpoints (public)
+- `GET /api/products`
+- `GET /api/products/{id}`
+- `GET /api/categories`
+- `GET /api/brands`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Database & Seeding
+- Migrations cover users, products, categories, brands, reviews, and supporting tables.
+- `MasterSeeder` seeds 30 products with brands/categories plus sample reviews data structure ready.
+- Run `php artisan migrate --seed` after configuring `.env`.
 
-## Contributing
+## Testing
+No automated tests provided. You can run `php artisan test` to execute any you add.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

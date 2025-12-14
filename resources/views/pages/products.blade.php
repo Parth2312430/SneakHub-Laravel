@@ -40,6 +40,7 @@
 
 <div id="productsGrid" class="row g-3 card-grid">
   <!-- Product cards will render here -->
+  <p class="text-center mt-5">Loading products...</p>
 </div>
 
 <!-- Product Details Modal -->
@@ -65,34 +66,35 @@
   </div>
 </div>
 
-{{-- === THIS IS THE FULLY CORRECTED SCRIPT === --}}
 <script>
 let products = [];
-// Get the CSRF token from the meta tag in your header
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-// === THIS IS THE NEW, CORRECTED LOADING LOGIC ===
-fetch('/api/products')
+// === FIX: Define Base URL so links work on XAMPP ===
+const BASE_URL = "{{ url('/') }}"; 
+
+// === FIX: Use BASE_URL for API call ===
+fetch(`${BASE_URL}/api/products`)
   .then(res => res.json())
   .then(data => {
-    products = data; // 1. Set the global products array
-    populateFilters(data); // 2. Populate dropdowns
+    products = data;
+    populateFilters(data);
 
-    // 3. NOW, check the URL for a search term
+    // Check URL for search term
     const urlParams = new URLSearchParams(window.location.search);
     const navSearchTerm = urlParams.get('search');
     
     if (navSearchTerm) {
-      // 4. If we find one, put it in this page's search box
       document.getElementById('productsSearch').value = navSearchTerm;
     }
 
-    // 5. NOW, and only now, apply all filters and display
     applyFilters();
+  })
+  .catch(error => {
+      console.error("Error fetching products:", error);
+      document.getElementById('productsGrid').innerHTML = '<p class="text-center text-danger">Failed to load products. Check console.</p>';
   });
-// ===============================================
 
-// Populate brand/category filters
 function populateFilters(data) {
   const brands = [...new Set(data.map(p => p.brand))];
   const categories = [...new Set(data.map(p => p.category))];
@@ -104,7 +106,6 @@ function populateFilters(data) {
   categories.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
 }
 
-// Display sneaker cards
 function displayProducts(items) {
   const container = document.getElementById('productsGrid');
   if (items.length === 0) {
@@ -115,7 +116,8 @@ function displayProducts(items) {
     <div class="col-md-4 col-sm-6">
       <div class="card border-0 shadow-sm h-100 d-flex flex-column">
         <div class="card-img-container">
-          <img src="${p.image}" class="card-img-top" alt="${p.name}">
+          <!-- FIX: Use BASE_URL for image -->
+          <img src="${BASE_URL}/${p.image}" class="card-img-top" alt="${p.name}">
         </div>
         <div class="card-body text-center d-flex flex-column flex-grow-1">
           <span class="badge bg-dark mb-2">${p.brand}</span>
@@ -130,10 +132,8 @@ function displayProducts(items) {
   `).join('');
 }
 
-// === ALL EVENT LISTENERS ARE NOW CORRECT ===
-// Live search for the products page search box
+// Event Listeners
 document.getElementById('productsSearch').addEventListener('input', applyFilters);
-// Filters
 document.getElementById('filterBrand').addEventListener('change', applyFilters);
 document.getElementById('filterCategory').addEventListener('change', applyFilters);
 document.getElementById('filterPrice').addEventListener('change', applyFilters);
@@ -145,10 +145,8 @@ document.getElementById('clearFilters').addEventListener('click', () => {
   document.getElementById('sortPrice').value = '';
   document.getElementById('productsSearch').value = '';
   applyFilters();
-Done
 });
 
-// THIS FUNCTION IS NOW 100% CORRECT
 function applyFilters() {
   let filtered = [...products];
 
@@ -162,9 +160,9 @@ function applyFilters() {
   if (cat) filtered = filtered.filter(p => p.category === cat);
   if (price) {
     const [min, max] = price.split('-').map(Number);
-    if(max) { // For ranges like 10000-20000
+    if(max) {
         filtered = filtered.filter(p => p.price >= min && p.price <= max);
-    } else { // For ranges like 40000+
+    } else {
         filtered = filtered.filter(p => p.price >= min);
     }
   }
@@ -176,20 +174,24 @@ function applyFilters() {
     );
 
   if (sort === 'low-high') filtered.sort((a, b) => a.price - b.price);
-  if (sort === 'high-low') filtered.sort((a, b) => b.price - b.price);
+  if (sort === 'high-low') filtered.sort((a, b) => b.price - a.price);
 
   displayProducts(filtered);
 }
 
-// Product modal
 function openModal(id) {
   const p = products.find(x => x.id == id);
   if (!p) return;
   document.getElementById('modalTitle').innerText = p.name;
-  document.getElementById('modalImage').src = p.image;
+  
+  // FIX: Use BASE_URL for modal image
+  document.getElementById('modalImage').src = `${BASE_URL}/${p.image}`;
+  
   document.getElementById('modalDesc').innerText = p.description;
   document.getElementById('modalPrice').innerText = `PKR ${p.price}`;
-  document.getElementById('viewDetailsBtn').href = `/product/${p.id}`;
+  
+  // FIX: Use BASE_URL for details link
+  document.getElementById('viewDetailsBtn').href = `${BASE_URL}/product/${p.id}`;
   
   const cartBtn = document.getElementById('addToCartBtn');
   const newCartBtn = cartBtn.cloneNode(true);
@@ -203,9 +205,9 @@ function openModal(id) {
   modal.show();
 }
 
-// This function sends the product ID to your CartController
 function addItemToCart(id) {
-  fetch(`/cart/add/${id}`, {
+  // FIX: Use BASE_URL for cart add
+  fetch(`${BASE_URL}/cart/add/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

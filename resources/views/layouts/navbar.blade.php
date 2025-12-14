@@ -9,16 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link {{ request()->is('home') ? 'active text-danger' : '' }}" href="{{ url('/home') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link {{ request()->is('products') ? 'active text-danger' : '' }}" href="{{ url('/products') }}">Shop</a></li>
+        <li class="nav-item"><a class="nav-link {{ request()->is('shop') ? 'active text-danger' : '' }}" href="{{ route('products') }}">Shop</a></li>
         <li class="nav-item"><a class="nav-link {{ request()->is('contact') ? 'active text-danger' : '' }}" href="{{ url('/contact') }}">Contact</a></li>
       </ul>
 
-      <!-- === THIS IS THE CORRECTED SEARCH FORM === -->
+      <!-- === THIS IS THE SEARCH FORM === -->
       <form class="d-flex me-3" role="search" method="GET" action="{{ route('products') }}">
         <input id="globalSearch" class="form-control me-2" type="search" name="search" placeholder="Search sneakers..." aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
-      <!-- ========================================= -->
+      
 
       <div class="d-flex align-items-center gap-3">
         <!-- Theme toggle -->

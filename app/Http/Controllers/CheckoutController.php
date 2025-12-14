@@ -40,11 +40,7 @@ class CheckoutController extends Controller
             'city' => 'required|string|max:100',
         ]);
 
-        // 2. (Future Step): This is where you would process the payment
-        // with a gateway like Stripe or EasyPaisa.
-
-        // 3. (Future Step): This is where you would save the order
-        // to an 'orders' table in your database.
+     
 
         // 4. For this project, we just clear the cart
         session()->forget('cart');

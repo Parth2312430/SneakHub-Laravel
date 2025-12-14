@@ -6,6 +6,7 @@
 <div class="hero text-center py-5 bg-dark text-white">
   <h1 class="display-4 fw-bold">Welcome to SneakHub</h1>
   <p class="lead mb-4">Your ultimate destination for authentic sneakers and footwear</p>
+  {{-- UPDATED: Use route helper instead of url() --}}
   <a href="{{ route('products') }}" class="btn btn-light btn-lg rounded-pill px-4">Shop Now</a>
 </div>
 
