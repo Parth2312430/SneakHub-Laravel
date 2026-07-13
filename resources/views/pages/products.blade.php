@@ -71,7 +71,7 @@ let products = [];
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 // === FIX: Define Base URL so links work on XAMPP ===
-const BASE_URL = "{{ url('/') }}"; 
+const BASE_URL = "{{ url('/') }}".replace(/\/$/, ""); 
 
 // === FIX: Use BASE_URL for API call ===
 fetch(`${BASE_URL}/api/products`)
