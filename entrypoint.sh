@@ -17,6 +17,12 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
+# Dynamically replace the Apache port with $PORT (defaults to 7860 if not set)
+PORT_TO_LISTEN=${PORT:-7860}
+echo "Configuring Apache to listen on port $PORT_TO_LISTEN..."
+sed -i "s/Listen .*/Listen $PORT_TO_LISTEN/g" /etc/apache2/ports.conf
+sed -i "s/<VirtualHost \*:.*/<VirtualHost \*:$PORT_TO_LISTEN>/g" /etc/apache2/sites-available/*.conf
+
 # Start Apache in the foreground
 echo "Starting Apache..."
 exec apache2-foreground
