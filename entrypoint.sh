@@ -23,6 +23,11 @@ echo "Configuring Apache to listen on port $PORT_TO_LISTEN..."
 sed -i "s/Listen .*/Listen $PORT_TO_LISTEN/g" /etc/apache2/ports.conf
 sed -i "s/<VirtualHost \*:.*/<VirtualHost \*:$PORT_TO_LISTEN>/g" /etc/apache2/sites-available/*.conf
 
+# Disable conflicting Apache MPMs at runtime
+echo "Disabling extra Apache MPMs..."
+a2dismod mpm_event mpm_worker || true
+a2enmod mpm_prefork || true
+
 # Start Apache in the foreground
 echo "Starting Apache..."
 exec apache2-foreground
