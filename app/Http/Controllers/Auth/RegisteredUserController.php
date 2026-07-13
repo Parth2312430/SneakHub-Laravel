@@ -45,6 +45,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        if (Auth::user()->email === 'admin123@example.com') {
+            return redirect(route('dashboard', absolute: false));
+        }
+
+        return redirect(route('home'));
     }
 }

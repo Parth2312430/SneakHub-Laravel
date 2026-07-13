@@ -36,6 +36,11 @@
                     <x-nav-link :href="route('admin.brands.index')" :active="request()->routeIs('admin.brands.*')" class="text-gray-700 hover:text-black font-bold transition-colors duration-200">
                         {{ __('Brands') }}
                     </x-nav-link>
+
+                    <!-- 6. Manage Orders (Admin) -->
+                    <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')" class="text-gray-700 hover:text-black font-bold transition-colors duration-200">
+                        {{ __('Orders') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -102,6 +107,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.brands.index')" :active="request()->routeIs('admin.brands.*')">
                 {{ __('Brands') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                {{ __('Orders') }}
             </x-responsive-nav-link>
         </div>
 

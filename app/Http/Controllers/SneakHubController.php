@@ -50,5 +50,21 @@ class SneakHubController extends Controller
     {
         return view('pages.contact');
     }
+
+    /**
+     * Display the logged-in user's order history.
+     */
+    public function myOrders()
+    {
+        $orders = \App\Models\Order::with('items.product')
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                      ->orWhere('email', auth()->user()->email);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('pages.orders', ['orders' => $orders]);
+    }
 }
 

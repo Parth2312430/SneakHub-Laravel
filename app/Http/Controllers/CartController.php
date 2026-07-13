@@ -20,6 +20,18 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
         $id = $product->id;
 
+        $requestedQuantity = $request->quantity;
+        $currentInCart = isset($cart[$id]) ? $cart[$id]['quantity'] : 0;
+        $totalRequested = $currentInCart + $requestedQuantity;
+
+        if ($product->stock <= 0) {
+            return redirect()->back()->with('error', 'This item is out of stock.');
+        }
+
+        if ($totalRequested > $product->stock) {
+            return redirect()->back()->with('error', "Cannot add more. Only {$product->stock} items are available in stock.");
+        }
+
         // Check if product is already in cart
         if(isset($cart[$id])) {
             $cart[$id]['quantity'] += $request->quantity;
@@ -66,6 +78,15 @@ class CartController extends Controller
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
+
+        $product = Product::find($id);
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found.');
+        }
+
+        if ($request->quantity > $product->stock) {
+            return redirect()->back()->with('error', "Only {$product->stock} items are available in stock.");
+        }
 
         $cart = session()->get('cart');
 

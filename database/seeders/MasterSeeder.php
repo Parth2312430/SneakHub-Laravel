@@ -13,11 +13,22 @@ class MasterSeeder extends Seeder
     public function run(): void
     {
         // 1. CLEAR OLD DATA (Foreign key checks disabled to allow deletion)
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $driver = DB::getDriverName();
+        if ($driver === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = OFF;');
+        } else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        }
+
         Category::truncate();
         Brand::truncate();
         Product::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        if ($driver === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = ON;');
+        } else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        }
 
         // 2. CREATE CATEGORIES
         $cat_lifestyle = Category::create(['name' => 'Lifestyle', 'description' => 'Casual wear for everyday comfort and style.']);

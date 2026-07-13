@@ -39,24 +39,32 @@
             <hr>
 
             <!-- Add to Cart Form -->
-            <form action="{{ route('cart.add', $product) }}" method="POST">
-                @csrf
-                <div class="row g-2">
-                    <div class="col-md-3 col-4">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="{{ $product->stock }}">
+            @if ($product->stock > 0)
+                <form action="{{ route('cart.add', $product) }}" method="POST">
+                    @csrf
+                    <div class="row g-2">
+                        <div class="col-md-3 col-4">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="{{ $product->stock }}">
+                        </div>
+                        <div class="col-md-9 col-8 align-self-end">
+                            <button type="submit" class="btn btn-dark btn-lg w-100">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-9 col-8 align-self-end">
-                        <button type="submit" class="btn btn-dark btn-lg w-100">
-                            <i class="bi bi-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
+                </form>
+                <div class="mt-2">
+                    <small class="text-success fw-bold"><i class="bi bi-check-circle-fill"></i> In Stock ({{ $product->stock }} items left)</small>
                 </div>
-            </form>
-            
-            <div class="mt-2">
-                <small class="text-muted">{{ $product->stock }} items left in stock</small>
-            </div>
+            @else
+                <div class="alert alert-danger py-2 mb-2">
+                    <strong><i class="bi bi-exclamation-triangle-fill"></i> Out of Stock!</strong> This item is currently unavailable.
+                </div>
+                <button class="btn btn-secondary btn-lg w-100" disabled>
+                    Out of Stock
+                </button>
+            @endif
             
         </div>
     </div>

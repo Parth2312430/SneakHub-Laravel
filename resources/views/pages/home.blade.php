@@ -28,7 +28,12 @@
 
           {{-- 4. ADD 'd-flex' and 'flex-grow-1' --}}
           <div class="card-body text-center d-flex flex-column flex-grow-1">
-            <span class="badge bg-dark mb-2">{{ $product->brand }}</span>
+            <div class="mb-2">
+              <span class="badge bg-dark">{{ $product->brand }}</span>
+              @if ($product->stock <= 0)
+                <span class="badge bg-danger">Out of Stock</span>
+              @endif
+            </div>
             <h6 class="card-title fw-bold">{{ $product->name }}</h6>
             <p class="price text-danger fw-bold">PKR {{ number_format($product->price) }}</p>
             

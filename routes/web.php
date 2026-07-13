@@ -12,14 +12,16 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminBrandController;
+use App\Http\Controllers\AdminOrderController;
 
 /*
 |--------------------------------------------------------------------------
 | Laravel Default Welcome Page
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [SneakHubController::class, 'home'])->name('home');
+Route::get('/home', function () {
+    return redirect()->route('home');
 });
 
 /*
@@ -45,10 +47,10 @@ Route::get('/api/brands/{id}', [BrandApiController::class, 'show']);
 | SneakHub Public Pages
 |--------------------------------------------------------------------------
 */
-Route::get('/home', [SneakHubController::class, 'home'])->name('home');
 Route::get('/shop', [SneakHubController::class, 'products'])->name('products');
 Route::get('/contact', [SneakHubController::class, 'contact'])->name('contact');
 Route::get('/product/{id}', [SneakHubController::class, 'productDetails'])->name('product.details');
+Route::get('/my-orders', [SneakHubController::class, 'myOrders'])->middleware('auth')->name('my.orders');
 
 /*
 |--------------------------------------------------------------------------
@@ -77,16 +79,27 @@ Route::get('/checkout/success', function() {
 |--------------------------------------------------------------------------
 */
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (auth()->user()->email !== 'admin123@example.com') {
+        return redirect()->route('home')->with('error', 'Access denied. You do not have administrator privileges.');
+    }
+    $totalRevenue = \App\Models\Order::sum('total_price');
+    $totalOrders = \App\Models\Order::count();
+    $outOfStock = \App\Models\Product::where('stock', '<=', 0)->count();
+    $recentOrders = \App\Models\Order::orderBy('created_at', 'desc')->take(5)->get();
+
+    return view('dashboard', compact('totalRevenue', 'totalOrders', 'outOfStock', 'recentOrders'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// === ADMIN ROUTES GROUP ===
+// === USER PROFILE ROUTES ===
 Route::middleware('auth')->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+// === ADMIN ROUTES GROUP ===
+Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
     // AJAX Search for products in admin (MUST be before resource route)
     Route::get('/admin/products/search', [AdminProductController::class, 'search'])->name('admin.products.search');
 
@@ -124,6 +137,15 @@ Route::middleware('auth')->group(function () {
             'edit' => 'admin.brands.edit',
             'update' => 'admin.brands.update',
             'destroy' => 'admin.brands.destroy',
+        ]);
+
+    // Module 4: Orders
+    Route::resource('admin/orders', AdminOrderController::class)
+        ->only(['index', 'show', 'update'])
+        ->names([
+            'index' => 'admin.orders.index',
+            'show' => 'admin.orders.show',
+            'update' => 'admin.orders.update',
         ]);
 });
 

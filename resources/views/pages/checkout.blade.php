@@ -65,7 +65,7 @@
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0">{{ $item['name'] }}</h6>
-                        <small class="text-muted">Quantity: {{ $item['quantity'] }}</x>
+                        <small class="text-muted">Quantity: {{ $item['quantity'] }}</small>
                     </div>
                     <span class="text-muted">PKR {{ number_format($item['price'] * $item['quantity']) }}</span>
                 </li>

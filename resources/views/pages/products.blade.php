@@ -120,7 +120,10 @@ function displayProducts(items) {
           <img src="${BASE_URL}/${p.image}" class="card-img-top" alt="${p.name}">
         </div>
         <div class="card-body text-center d-flex flex-column flex-grow-1">
-          <span class="badge bg-dark mb-2">${p.brand}</span>
+          <div class="mb-2">
+            <span class="badge bg-dark">${p.brand}</span>
+            ${p.stock <= 0 ? `<span class="badge bg-danger">Out of Stock</span>` : ''}
+          </div>
           <h6 class="card-title fw-bold">${p.name}</h6>
           <p class="price text-danger fw-bold">PKR ${p.price}</p>
           <button class="btn btn-outline-dark btn-sm rounded-pill px-3 mt-auto" onclick="openModal(${p.id})">
@@ -197,9 +200,18 @@ function openModal(id) {
   const newCartBtn = cartBtn.cloneNode(true);
   cartBtn.parentNode.replaceChild(newCartBtn, cartBtn);
   
-  newCartBtn.addEventListener('click', () => {
-    addItemToCart(p.id);
-  });
+  if (p.stock <= 0) {
+    newCartBtn.disabled = true;
+    newCartBtn.innerHTML = `<i class="bi bi-x-circle"></i> Out of Stock`;
+    newCartBtn.className = "btn btn-secondary px-4";
+  } else {
+    newCartBtn.disabled = false;
+    newCartBtn.innerHTML = `<i class="bi bi-cart-plus"></i> Add to Cart`;
+    newCartBtn.className = "btn btn-dark px-4";
+    newCartBtn.addEventListener('click', () => {
+      addItemToCart(p.id);
+    });
+  }
 
   const modal = new bootstrap.Modal(document.getElementById('productModal'));
   modal.show();
